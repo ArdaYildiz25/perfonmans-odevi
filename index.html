@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Gösterge Paneli</title>
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    body { background:#f5f6fa; }
+    .stat-card { color:#fff; border-radius:12px; }
+    .bg-green { background:#28a745; }
+    .bg-cyan { background:#35c9e8; }
+    .bg-blue { background:#2f6df6; }
+    .bg-yellow { background:#ffc107; color:#000; }
+
+    .header-logo {
+      position: absolute;
+      top: 15px;
+      left: 20px;
+      height: 60px;
+      border-radius: 8px;
+  }
+  header {
+    position: relative;
+  }
+  </style>
+</head>
+<body>
+
+  <header class="bg-primary text-white py-4">
+    <img src="AY.png" class="header-logo" alt="Logo">
+    <div class="container text-center">
+        <h1 class="fw-bold mb-1 d-flex justify-content-center align-items-center gap-2">
+            🏋️‍♂️ Spor Salonu Yönetim Sistemi
+        </h1>
+        <p class="mb-0 opacity-75">
+            Üye Takip ve Yönetim Platformu
+        </p>
+    </div>
+</header>
+
+<div class="container-fluid p-4">
+
+  <!-- Üst Menü -->
+  <ul class="nav nav-tabs mb-4" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#dashboard" type="button">
+        📊 Gösterge Paneli
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" data-bs-toggle="tab" data-bs-target="#uyeler" type="button">
+        👥 Üye Listesi
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" data-bs-toggle="tab" data-bs-target="#uyeform" type="button">
+        ➕ Üye Ekle / Düzenle
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#giris" type="button">
+    ✅ Giriş Sistemi
+  </button>
+</li>
+
+    <li class="nav-item" role="presentation">
+  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#paketler" type="button">
+    💎 Üyelik Paketleri
+  </button>
+</li>
+  </ul>
+
+  <div class="tab-content">
+
+  <div class="tab-pane fade show active" id="dashboard">
+
+  <!-- Üst Kartlar -->
+  <div class="row g-3 mb-4">
+    <div class="col-md-3">
+      <div class="p-4 stat-card bg-green">
+        <h6>AKTİF ÜYELER</h6>
+        <h2>2</h2>
+        <i class="bi bi-check-circle fs-1"></i>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="p-4 stat-card bg-cyan">
+        <h6>TOPLAM ÜYE</h6>
+        <h2>2</h2>
+        <i class="bi bi-people fs-1"></i>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="p-4 stat-card bg-blue">
+        <h6>BUGÜNKÜ GİRİŞ</h6>
+        <h2>0</h2>
+        <i class="bi bi-box-arrow-in-right fs-1"></i>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="p-4 stat-card bg-yellow">
+        <h6>TOPLAM GELİR</h6>
+        <h2>₺5.300</h2>
+        <i class="bi bi-cash-stack fs-1"></i>
+      </div>
+    </div>
+  </div>
+
+  <!-- Orta Alan -->
+  <div class="row g-3 mb-4">
+
+    <div class="col-md-4">
+      <div class="card h-100">
+        <div class="card-header">Üye Durum Dağılımı</div>
+        <div class="card-body">
+          <p>Aktif (2)</p>
+          <div class="progress mb-3"><div class="progress-bar bg-success" style="width:100%"></div></div>
+          <p>Süresi Dolmuş (0)</p>
+          <div class="progress mb-3"><div class="progress-bar bg-secondary" style="width:0%"></div></div>
+          <p>Beklemede (0)</p>
+          <div class="progress"><div class="progress-bar bg-secondary" style="width:0%"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card h-100">
+        <div class="card-header">Üyelik Paketi Dağılımı</div>
+        <div class="card-body">
+          <p id="aylikText">Aylık (1)</p>
+          <div class="progress mb-3">
+            <div id="aylikBar" class="progress-bar bg-info" style="width:50%"></div>
+          </div>
+          <p id="ucAylikText">3 Aylık (0)</p>
+          <div class="progress mb-3">
+            <div id="ucAylikBar" class="progress-bar bg-secondary" style="width:0%"></div>
+          </div>
+          <p id="yillikText">Yıllık (1)</p>
+          <div class="progress">
+            <div id="yillikBar" class="progress-bar bg-success" style="width:50%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card h-100 border-danger">
+        <div class="card-header bg-danger text-white">
+          <i class="bi bi-exclamation-triangle"></i> Üyeliği Dolmak Üzere Olanlar
+        </div>
+        <div class="card-body text-center">
+          Yakında dolacak üyelik yok
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Alt Alan -->
+  <div class="row g-3">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">Aylık İstatistikler</div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item d-flex justify-content-between">
+            Aylık Gelir (Tahmini)
+            <strong id="aylikGelir">₺900</strong>
+          </li>
+          <li class="list-group-item d-flex justify-content-between">
+            Ortalama Günlük Giriş
+            <strong id="ortalamaGiris">0 kişi</strong>
+          </li>
+          <li class="list-group-item d-flex justify-content-between">
+            En Popüler Paket
+            <strong id="populerPaket">Aylık</strong>
+          </li>
+          <li class="list-group-item d-flex justify-content-between">
+            Aktif Üye Oranı
+            <strong id="aktifOran">%100</strong>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">🏆 En Aktif Üyeler</div>
+        <ul class="list-group list-group-flush" id="aktifUyeler">
+          <li class="list-group-item d-flex justify-content-between">#1 Ahmet Yılmaz <span class="badge bg-primary">2 giriş</span></li>
+          <li class="list-group-item d-flex justify-content-between">#2 Ayşe Demir <span class="badge bg-primary">1 giriş</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  
+  </div>
+
+<div class="tab-pane fade" id="uyeler">
+
+  <!-- Üye Listesi -->
+  <div class="card mt-4">
+    <div class="card-header bg-primary text-white">
+      <i class="bi bi-people"></i> Üye Listesi
+    </div>
+    <div class="card-body">
+
+      <div class="row mb-3 g-2">
+        <div class="col-md-8">
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-search"></i></span>
+            <input type="text" class="form-control" id="uyeAra" placeholder="Ad, soyad, e-posta veya telefon ile ara...">
+          </div>
+        </div>
+        <div class="col-md-4">
+          <select class="form-select">
+            <option>Tüm Durumlar</option>
+            <option>Aktif</option>
+            <option>Süresi Dolmuş</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="table-responsive">
+        <table class="table table-bordered align-middle">
+          <thead class="table-dark">
+            <tr>
+              <th>#</th>
+              <th>Ad Soyad</th>
+              <th>İletişim</th>
+              <th>Üyelik</th>
+              <th>Başlangıç</th>
+              <th>Bitiş</th>
+              <th>Kalan Gün</th>
+              <th>Durum</th>
+              <th>Giriş Sayısı</th>
+            </tr>
+          </thead>
+          <tbody id="uyeTablo">
+            <tr>
+              <td>1</td>
+              <td><strong>Ahmet Yılmaz</strong></td>
+              <td>
+                <i class="bi bi-envelope"></i> ahmet@example.com<br>
+                <i class="bi bi-telephone"></i> 0555 123 4567
+              </td>
+              <td><span class="badge bg-info">Aylık</span></td>
+              <td>01.01.2025</td>
+              <td>01.02.2025</td>
+              <td><span class="badge bg-danger">Süresi doldu</span></td>
+              <td><span class="badge bg-success">Aktif</span></td>
+              <td><span class="badge bg-primary">2</span></td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td><strong>Ayşe Demir</strong></td>
+              <td>
+                <i class="bi bi-envelope"></i> ayse@example.com<br>
+                <i class="bi bi-telephone"></i> 0555 987 6543
+              </td>
+              <td><span class="badge bg-success">Yıllık</span></td>
+              <td>01.12.2024</td>
+              <td>01.12.2025</td>
+              <td><span class="badge bg-danger">Süresi doldu</span></td>
+              <td><span class="badge bg-success">Aktif</span></td>
+              <td><span class="badge bg-primary">1</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="text-muted" id="uyeSayac">Toplam 2 üye gösteriliyor</div>
+
+    </div>
+  </div>
+
+</div>
+
+<div class="tab-pane fade" id="giris">
+
+  <!-- Üye Giriş Sistemi -->
+  <div class="card mt-4 shadow-sm">
+    <div class="card-header bg-primary text-white fw-semibold">
+      <i class="bi bi-check-square-fill me-2"></i> Üye Giriş Sistemi
+    </div>
+
+    <div class="card-body">
+
+      <!-- Arama -->
+      <div class="input-group mb-4">
+        <span class="input-group-text">
+          <i class="bi bi-search"></i>
+        </span>
+        <input type="text" id="girisAra" class="form-control"
+               placeholder="Üye adı, soyadı veya telefon ile ara...">
+      </div>
+
+      <!-- Sonuç -->
+      <div id="girisSonuc" class="text-center text-muted py-5">
+        <i class="bi bi-search display-3"></i>
+        <h5 class="mt-3">Üye Ara</h5>
+        <p>Giriş yapmak için yukarıdaki arama kutusunu kullanın</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Bugünkü Girişler -->
+  <div class="card mt-4 shadow-sm">
+    <div class="card-header fw-semibold">
+      <i class="bi bi-bar-chart-fill me-2"></i> Bugünkü Girişler
+    </div>
+
+    <ul class="list-group list-group-flush" id="bugunkuGirisler">
+    </ul>
+  </div>
+
+</div>
+
+
+<div class="tab-pane fade" id="uyeform">
+  <div class="card mt-4">
+    <div class="card-header bg-success text-white">Üye Ekle / Düzenle</div>
+    <div class="card-body">
+      <form id="uyeForm">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label class="form-label">Ad Soyad</label>
+            <input type="text" class="form-control" placeholder="Ad Soyad">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">E-posta</label>
+            <input type="email" class="form-control" placeholder="ornek@mail.com">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Telefon</label>
+            <input type="text" class="form-control" placeholder="05xx xxx xx xx">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Üyelik Paketi</label>
+            <select class="form-select">
+              <option value="Aylık">Aylık – ₺500</option>
+              <option value="3 Aylık">3 Aylık – ₺1.350 (İndirimli)</option>
+              <option value="Yıllık">Yıllık – ₺4.800 (En Avantajlı)</option>
+            </select>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Başlangıç Tarihi</label>
+            <input type="date" class="form-control">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Bitiş Tarihi</label>
+            <input type="date" class="form-control">
+          </div>
+        </div>
+        <div class="mt-4">
+          <button type="submit" class="btn btn-success">Kaydet</button>
+          <button type="reset" class="btn btn-secondary">Temizle</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="tab-pane fade" id="paketler">
+  <div class="d-flex justify-content-between align-items-center mt-4 mb-3">
+    <h4 class="fw-bold">💎 Üyelik Paketleri</h4>
+  </div>
+
+  <div class="row g-4">
+
+    <div class="col-md-4">
+      <div class="card h-100 border-info">
+        <div class="card-header bg-info text-white text-center">
+          <h5 class="mb-0">Aylık Paket</h5>
+          <h2 class="fw-bold">₺500</h2>
+          <small>1 Ay</small>
+        </div>
+        <div class="card-body">
+          <ul class="list-unstyled">
+            <li>✔ Sınırsız salon kullanımı</li>
+            <li>✔ Soyunma odası ve duş</li>
+            <li>✔ Günlük programlar</li>
+            <li>✔ Ücretsiz WiFi</li>
+          </ul>
+        </div>
+        <div class="border-top text-center py-2 text-muted fw-semibold">
+  Aylık: ₺500
+</div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card h-100 border-success">
+        <div class="card-header bg-success text-white text-center">
+          <span class="badge bg-warning text-dark position-absolute top-0 end-0 m-2">Popüler</span>
+          <h5 class="mb-0">3 Aylık Paket</h5>
+          <h2 class="fw-bold">₺1.350</h2>
+          <small>3 Ay</small>
+        </div>
+        <div class="card-body">
+          <ul class="list-unstyled">
+            <li>✔ Tüm Temel Paket özellikleri</li>
+            <li>✔ 2 kişisel antrenman seansı</li>
+            <li>✔ Grup dersleri</li>
+            <li>✔ Beslenme danışmanlığı</li>
+            <li>✔ %10 indirim</li>
+          </ul>
+        </div>
+        <div class="border-top text-center py-2 text-muted fw-semibold">
+  Aylık: ₺450
+</div>
+
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card h-100 border-warning">
+        <div class="card-header bg-warning text-dark text-center">
+          <h5 class="mb-0">Yıllık Paket</h5>
+          <h2 class="fw-bold">₺4.800</h2>
+          <small>12 Ay</small>
+        </div>
+        <div class="card-body">
+          <ul class="list-unstyled">
+            <li>✔ Tüm Standart Paket özellikleri</li>
+            <li>✔ 8 kişisel antrenman seansı</li>
+            <li>✔ Havuz kullanımı</li>
+            <li>✔ Sauna ve buhar odası</li>
+            <li>✔ Masaj (aylık 2 seans)</li>
+            <li>✔ Özel dolap</li>
+            <li>✔ %20 indirim</li>
+            <li>✔ Misafir getirme hakkı</li>
+          </ul>
+        </div>
+        <div class="border-top text-center py-2 text-muted fw-semibold">
+  Aylık: ₺400
+</div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+</div>
+
+<!-- Bootstrap JS -->
+<script>
+// ===== GLOBAL DEĞİŞKENLER =====
+let uyeSayisi = document.querySelectorAll('#uyeTablo tr').length;
+let toplamGelir = 5300;
+let aylikPaket = 1;
+let ucAylikPaket = 0;
+let yillikPaket = 1;
+
+const aylikText = document.getElementById('aylikText');
+const ucAylikText = document.getElementById('ucAylikText');
+const yillikText = document.getElementById('yillikText');
+const aylikBar = document.getElementById('aylikBar');
+const ucAylikBar = document.getElementById('ucAylikBar');
+const yillikBar = document.getElementById('yillikBar');
+const toplamGelirKart = document.querySelectorAll('.stat-card h2')[3];
+const form = document.getElementById('uyeForm');
+const tablo = document.getElementById('uyeTablo');
+const paketSelect = form.querySelector('select');
+const dateInputs = form.querySelectorAll('input[type="date"]');
+
+// ===== TARİH AYARLARI =====
+const today = new Date().toISOString().split('T')[0];
+dateInputs[0].value = today;
+
+function hesaplaBitis(){
+  if(!dateInputs[0].value) return;
+
+  const basTarih = new Date(dateInputs[0].value);
+  let bitis = new Date(basTarih);
+
+  if(paketSelect.value === 'Aylık') bitis.setMonth(bitis.getMonth() + 1);
+  if(paketSelect.value === '3 Aylık') bitis.setMonth(bitis.getMonth() + 3);
+  if(paketSelect.value === 'Yıllık') bitis.setFullYear(bitis.getFullYear() + 1);
+
+  dateInputs[1].value = bitis.toISOString().split('T')[0];
+}
+
+paketSelect.addEventListener('change', hesaplaBitis);
+dateInputs[0].addEventListener('change', hesaplaBitis);
+
+// ilk yüklemede de hesapla
+hesaplaBitis();
+
+// ===== FORM SUBMIT =====
+form.addEventListener('submit', function(e){
+  e.preventDefault();
+
+  const ad = form.querySelector('input[placeholder="Ad Soyad"]').value.trim();
+  const email = form.querySelector('input[type="email"]').value.trim();
+  const tel = form.querySelector('input[placeholder="05xx xxx xx xx"]').value.trim();
+  const paket = paketSelect.value;
+  let paketFiyat = 0;
+  if (paket === 'Aylık') aylikPaket++;
+  if (paket === '3 Aylık') ucAylikPaket++;
+  if (paket === 'Yıllık') yillikPaket++;
+  paketDagiliminiGuncelle();
+  aylikIstatistikleriGuncelle();
+
+if (paket === 'Aylık') paketFiyat = 500;
+if (paket === '3 Aylık') paketFiyat = 1350;
+if (paket === 'Yıllık') paketFiyat = 4800;
+
+toplamGelir += paketFiyat;
+toplamGelirKart.innerText = `₺${toplamGelir.toLocaleString('tr-TR')}`;
+
+  const bas = dateInputs[0].value;
+  const bit = dateInputs[1].value;
+
+  if(!ad || !email){
+    alert('Ad Soyad ve E-posta zorunludur');
+    return;
+  }
+
+  uyeSayisi++;
+
+  const tr = document.createElement('tr');
+  tr.innerHTML = `
+    <td>${uyeSayisi}</td>
+    <td><strong>${ad}</strong></td>
+    <td>
+      <i class="bi bi-envelope"></i> ${email}<br>
+      <i class="bi bi-telephone"></i> ${tel || '-'}
+    </td>
+    <td><span class="badge bg-info">${paket}</span></td>
+    <td>${bas}</td>
+    <td>${bit}</td>
+    <td><span class="badge bg-success">Devam ediyor</span></td>
+    <td><span class="badge bg-success">Aktif</span></td>
+    <td><span class="badge bg-primary">0</span></td>
+  `;
+
+  tablo.appendChild(tr);
+  uyeSayisiniGuncelle();
+
+
+  // dashboard sayaçları
+  document.querySelectorAll('.stat-card h2')[0].innerText = uyeSayisi;
+  document.querySelectorAll('.stat-card h2')[1].innerText = uyeSayisi;
+
+  // form reset
+  form.reset();
+  dateInputs[0].value = today;
+  hesaplaBitis();
+});
+const girisAra = document.getElementById('girisAra');
+const girisSonuc = document.getElementById('girisSonuc');
+const bugunkuGirisler = document.getElementById('bugunkuGirisler');
+
+girisAra.addEventListener('keyup', function () {
+  const aranan = this.value.toLowerCase().trim();
+  girisSonuc.innerHTML = '';
+  if (aranan.length < 2) return;
+
+  const uyeler = document.querySelectorAll('#uyeTablo tr');
+  let bulundu = false;
+
+  uyeler.forEach(uye => {
+    const ad = uye.children[1].innerText.toLowerCase();
+    const tel = uye.children[2].innerText.toLowerCase();
+
+    if (ad.includes(aranan) || tel.includes(aranan)) {
+      bulundu = true;
+
+      girisSonuc.innerHTML = `
+        <div class="card border-success mx-auto" style="max-width:400px">
+          <div class="card-body text-center">
+            <h5>${uye.children[1].innerText}</h5>
+            <p class="text-muted">${uye.children[2].innerText}</p>
+            <button class="btn btn-success w-100" onclick="girisYap('${uye.children[1].innerText}')">
+              <i class="bi bi-check-circle"></i> Giriş Yap
+            </button>
+          </div>
+        </div>
+      `;
+    }
+  });
+
+  if (!bulundu) {
+    girisSonuc.innerHTML = `<p class="text-danger">Üye bulunamadı</p>`;
+  }
+});
+
+function girisYap(ad) {
+  // üyenin tablo satırını bul
+const uyeler = document.querySelectorAll('#uyeTablo tr');
+
+uyeler.forEach(uye => {
+  const uyeAdi = uye.children[1].innerText;
+
+  if (uyeAdi === ad) {
+    const girisHucresi = uye.children[8].querySelector('.badge');
+    girisHucresi.innerText = parseInt(girisHucresi.innerText) + 1;
+  }
+});
+
+  const li = document.createElement('li');
+  li.className = 'list-group-item d-flex justify-content-between align-items-center';
+  li.innerHTML = `
+    <div><strong>${ad}</strong></div>
+    <span class="badge bg-success"><i class="bi bi-check-lg"></i></span>
+  `;
+  bugunkuGirisler.prepend(li);
+
+  // dashboard BUGÜNKÜ GİRİŞ arttır
+  const girisKart = document.querySelectorAll('.stat-card h2')[2];
+  girisKart.innerText = parseInt(girisKart.innerText) + 1;
+
+  girisAra.value = '';
+  girisSonuc.innerHTML = `
+    <div class="text-success">
+      <i class="bi bi-check-circle-fill fs-1"></i>
+      <p class="mt-2">Giriş başarıyla alındı</p>
+    </div>
+  `;
+
+  aktifUyeleriGuncelle();
+  aylikIstatistikleriGuncelle();
+
+}
+// ===== EN AKTİF ÜYELERİ GÜNCELLE =====
+function aktifUyeleriGuncelle() {
+  const liste = document.getElementById('aktifUyeler');
+  const uyeler = document.querySelectorAll('#uyeTablo tr');
+
+  let veri = [];
+
+  uyeler.forEach(uye => {
+    const ad = uye.children[1].innerText;
+    const giris = parseInt(uye.children[8].innerText);
+
+    if (giris > 0) {
+      veri.push({ ad, giris });
+    }
+  });
+
+  // giriş sayısına göre sırala
+  veri.sort((a, b) => b.giris - a.giris);
+
+  // listeyi temizle
+  liste.innerHTML = '';
+
+  // ilk 5 kişiyi yaz
+  veri.slice(0, 5).forEach((uye, index) => {
+    const li = document.createElement('li');
+    li.className = 'list-group-item d-flex justify-content-between';
+    li.innerHTML = `
+      #${index + 1} ${uye.ad}
+      <span class="badge bg-primary">${uye.giris} giriş</span>
+    `;
+    liste.appendChild(li);
+  });
+
+  if (veri.length === 0) {
+    liste.innerHTML = `<li class="list-group-item text-muted">Henüz giriş yok</li>`;
+  }
+}
+function uyeSayisiniGuncelle() {
+  const adet = document.querySelectorAll('#uyeTablo tr').length;
+  document.getElementById('uyeSayac').innerText =
+    `Toplam ${adet} üye gösteriliyor`;
+}
+const uyeAra = document.getElementById('uyeAra');
+
+uyeAra.addEventListener('keyup', function () {
+  const aranan = this.value.toLowerCase();
+
+  const satirlar = document.querySelectorAll('#uyeTablo tr');
+
+  satirlar.forEach(satir => {
+    const metin = satir.innerText.toLowerCase();
+
+    if (metin.includes(aranan)) {
+      satir.style.display = '';
+    } else {
+      satir.style.display = 'none';
+    }
+  });
+});
+function paketDagiliminiGuncelle() {
+  const toplam = aylikPaket + ucAylikPaket + yillikPaket;
+  if (toplam === 0) return;
+
+  aylikText.innerText = `Aylık (${aylikPaket})`;
+  ucAylikText.innerText = `3 Aylık (${ucAylikPaket})`;
+  yillikText.innerText = `Yıllık (${yillikPaket})`;
+
+  aylikBar.style.width = `${(aylikPaket / toplam) * 100}%`;
+  ucAylikBar.style.width = `${(ucAylikPaket / toplam) * 100}%`;
+  yillikBar.style.width = `${(yillikPaket / toplam) * 100}%`;
+}
+
+function aylikIstatistikleriGuncelle() {
+  document.getElementById('aylikGelir').innerText =
+    `₺${toplamGelir.toLocaleString('tr-TR')}`;
+
+  const toplamGiris = document.querySelectorAll('#bugunkuGirisler li').length;
+  document.getElementById('ortalamaGiris').innerText =
+    `${toplamGiris} kişi`;
+
+  const paketler = [
+    { ad: 'Aylık', adet: aylikPaket },
+    { ad: '3 Aylık', adet: ucAylikPaket },
+    { ad: 'Yıllık', adet: yillikPaket }
+  ];
+
+  paketler.sort((a, b) => b.adet - a.adet);
+  document.getElementById('populerPaket').innerText = paketler[0].ad;
+
+  const toplamUye = document.querySelectorAll('#uyeTablo tr').length;
+  const aktifUye = toplamUye;
+  const oran = Math.round((aktifUye / toplamUye) * 100);
+
+  document.getElementById('aktifOran').innerText = `%${oran}`;
+}
+
+
+paketDagiliminiGuncelle();
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
